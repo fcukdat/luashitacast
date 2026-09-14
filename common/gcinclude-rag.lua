@@ -42,7 +42,7 @@ local opo_opo_necklace = {
 }
 
 -- Set this to true to confirm that you actually read the README.md and set up the equipment and settings listed above correctly
-local i_can_read_and_follow_instructions_test = false
+local i_can_read_and_follow_instructions_test = true
 
 -- Add additional equipment here that you want to automatically lock when equipping. Ignore's Maat's Cap, Dream Mittens +1, Dream Boots +1 as these will stick on idle.
 local LockableEquipment = {
