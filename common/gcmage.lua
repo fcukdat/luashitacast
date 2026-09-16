@@ -128,6 +128,29 @@ local tp_diabolos_earring = {
 
 -- Set this to true to confirm that you actually read the README.md and set up the equipment and settings listed above correctly
 local i_can_read_and_follow_instructions_test = true
+--[[
+--------------------------------
+Extra Sticky Stuff
+--------------------------------
+]]
+
+local fishing = {
+    Head = 'Wzd. Petasos +1',
+    Ranged = 'Lu Shang\'s F. Rod', 
+    Body = 'Fsh. Tunica',
+    Hands = 'Fsh. Gloves',
+    Legs = 'Fisherman\'s Hose',
+    Feet = 'Waders',
+}
+
+local riding = {
+    Head = 'Wzd. Petasos +1',
+    Body = 'Choc. Jack Coat',
+    Hands = 'Chocobo Gloves',
+    Legs = 'Chocobo Tights',
+    Feet = 'Rider\'s Boots',
+}
+
 
 --[[
 --------------------------------
@@ -539,6 +562,7 @@ function gcmage.DoDefaultOverride()
     else
         restingMaxMP = false
     end
+
 
     gcmage.EquipWeaponLoadout()
 end
@@ -1315,6 +1339,11 @@ function gcmage.DoAbility()
 end
 
 function gcmage.AppendSets(sets)
+
+-- custom sets
+    sets.riding = riding
+    sets.fishing = fishing
+    
     sets.claustrum = claustrum
 
     sets.fire_staff = fire_staff

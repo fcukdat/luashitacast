@@ -30,6 +30,10 @@ local sorcerers_tonban = {
     Legs = { Name = 'Src. Tonban +1', Priority = 50 },
 }
 
+local Settings = {
+    CurrentLevel = 0,
+};
+
 -- Disabled on horizon_safe_mode
 local sorcerers_earring_hp_threshold = 356 -- HP at which Sorcerer's Earring set is equipped
 local sorcerers_earring = { -- 1424
@@ -54,7 +58,7 @@ local sets = {
         Main = 'Terra\'s Staff',
         Ammo = { Name = 'Hedgehog Bomb', Priority = 50 },
         Head = 'Genie Tiara',
-        Neck = 'Jeweled Collar +1',
+        Neck = 'Evasion Torque',
         Ear1 = 'Merman\'s Earring',
         Ear2 = 'Merman\'s Earring',
         Body = { Name = 'Sorcerer\'s Coat', Priority = 50 },
@@ -67,9 +71,24 @@ local sets = {
         Waist = { Name = 'Penitent\'s Rope', Priority = -10 },
         Legs = 'Igqira Lappas',
         -- Feet = { Name = 'Herald\'s Gaiters', Priority = 50 },
-        Feet = { Name = 'Mountain Gaiters', Priority = 50 },
+        Feet = { Name = 'Wonder Clomps', Priority = 50 },
     },
-    IdleALT = {},
+    IdleALT = {
+        Main = 'Jupiter\'s Staff',
+        Range = 'Lu Shang\'s F. Rod',
+        Head = 'Wzd. Petasos +1',
+        Neck = 'Uggalepih Pendant',
+        Ear1 = 'Novio Earring',
+        Ear2 = 'Loquac. Earring',
+        Body = 'Sorcerer\'s Coat',
+        Hands = 'Src. Gloves +1',
+        Ring1 = 'Snow Ring',
+        Ring2 = 'Tamas Ring',
+        Back = 'Prism Cape',
+        Waist = 'Rairin Obi',
+        Legs = 'Igqira Lappas',
+        Feet = 'Src. Sabots +1',
+    },
     IdleMaxMP = {
         Head = { Name = 'Faerie Hairpin', Priority = 30 },
         Neck = { Name = 'Uggalepih Pendant', Priority = 50 },
@@ -407,21 +426,50 @@ local sets = {
         Feet = 'Nashira Crackows',
     },
 
-    Yellow = { -- This will override Precast if /lag is turned on or the spell casting time is too short. e.g. Tier 1: "Stone"
+    Yellow = {
+        Main = { {Name = 'Mandau', Level=75}, 'Asklepios'},
+        Ammo = 'Tiphia Sting',
+        Head = { {Name = 'Zenith Crown', Level=75}, 'Gold Hairpin'},
+        Neck = 'Star Necklace',
+        Ring1 = 'Astral Ring',
+        Ring2 = 'Astral Ring',
+        Body = 'Black Cotehardie',
+        Hands = { {Name = 'Zenith Mitts', Level=75}, 'Errant Cuffs'},
+        Back = 'Blue Cape',
+        Waist = { Name = 'Penitent\'s Rope', Priority = -10 },
+        Feet = {'Errant Cuffs'},
+     -- This will override Precast if /lag is turned on or the spell casting time is too short. e.g. Tier 1: "Stone"
     },
     YellowHNM = {
     },
 
-    Nuke = {
+    -- Nuke = {
+    --     Main = 'Rose Wand +1',
+    --     Ammo = { Name = 'Phtm. Tathlum', Priority = 50 },
+    --     Head = { 'Wzd. Petasos +1', 'Seer\'s Crown +1'},
+    --     Neck = 'Elemental Torque',
+    --     Ear1 = 'Novio Earring',
+    --     Ear2 = 'Moldavite Earring',
+    --     Body = 'Igqira Weskit',
+    --     Hands = { Name = 'Zenith Mitts +1', Priority = 10 },
+    --     Ring1 = 'Snow Ring',
+    --     Ring2 = 'Tamas Ring',
+    --     Back = { Name = 'Prism Cape', Priority = 70 },
+    --     Waist = { Name = 'Sorcerer\'s Belt', Priority = 60 },
+    --     Legs = 'Mahatma Slops',
+    --     Feet = { Name = 'Src. Sabots +1', Priority = 50 },
+    -- },
+    Nuke_Priority = {
+        Main = 'Rose Wand +1',
         Ammo = { Name = 'Phtm. Tathlum', Priority = 50 },
-        Head = 'Maat\'s Cap',
-        Neck = 'Prudence Torque',
+        Head = { 'Wzd. Petasos +1', 'Seer\'s Crown +1'},
+        Neck = 'Elemental Torque',
         Ear1 = 'Novio Earring',
         Ear2 = 'Moldavite Earring',
-        Body = 'Genie Weskit',
-        Hands = { Name = 'Zenith Mitts +1', Priority = 10 },
+        Body = 'Igqira Weskit',
+        Hands = { Name = 'Zenith Mitts', Priority = 10 },
         Ring1 = 'Snow Ring',
-        Ring2 = 'Omniscient Ring',
+        Ring2 = 'Tamas Ring',
         Back = { Name = 'Prism Cape', Priority = 70 },
         Waist = { Name = 'Sorcerer\'s Belt', Priority = 60 },
         Legs = 'Mahatma Slops',
@@ -431,14 +479,14 @@ local sets = {
         Head = { Name = 'Wzd. Petasos +1', Priority = 50 },
         Ear2 = 'Novia Earring',
         Body = 'Mahatma Hpl.',
-        Hands = { Name = 'Wzd. Gloves +1', Priority = 50 },
+        Hands = { Name = 'Wizard\'s Gloves', Priority = 50 },
         Back = { Name = 'Mahatma Cape', Priority = 50 },
         Waist = { Name = 'Penitent\'s Rope', Priority = -10 },
     },
     NukeACC = {
         Head = { Name = 'Src. Petasos +1', Priority = 50 },
         Neck = 'Elemental Torque',
-        Hands = { Name = 'Wzd. Gloves +1', Priority = 50 },
+        Hands = { Name = 'Wizard\'s Gloves', Priority = 50 },
         Back = { Name = 'Merciful Cape', Priority = 50 },
         Feet = 'Nashira Crackows',
     },
@@ -562,6 +610,7 @@ end
 profile.HandleDefault = function()
     gcmage.DoDefault(sets, ninSJMaxMP, whmSJMaxMP, nil, rdmSJMaxMP, nil)
 
+
     local spikes = gData.GetBuffCount('Blaze Spikes') + gData.GetBuffCount('Shock Spikes') + gData.GetBuffCount('Ice Spikes')
     local isPhysical = gcdisplay.IdleSet == 'Normal' or gcdisplay.IdleSet == 'Alternate' or gcdisplay.IdleSet == 'DT'
     if (spikes > 0 and isPhysical) then
@@ -573,6 +622,12 @@ profile.HandleDefault = function()
         if (player.HP <= sorcerers_earring_hp_threshold) then
             gFunc.EquipSet('sorcerers_earring')
         end
+    end
+
+    local myLevel = AshitaCore:GetMemoryManager():GetPlayer():GetMainJobLevel();
+    if (myLevel ~= Settings.CurrentLevel) then
+        gFunc.EvaluateLevels(profile.Sets, myLevel);
+        Settings.CurrentLevel = myLevel;
     end
 
     gcmage.DoDefaultOverride()
