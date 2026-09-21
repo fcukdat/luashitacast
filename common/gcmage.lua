@@ -136,11 +136,14 @@ Extra Sticky Stuff
 
 local fishing = {
     Head = 'Wzd. Petasos +1',
-    Ranged = 'Lu Shang\'s F. Rod', 
+    Range = 'Lu Shang\'s F. Rod', 
     Body = 'Fsh. Tunica',
     Hands = 'Fsh. Gloves',
     Legs = 'Fisherman\'s Hose',
     Feet = 'Waders',
+    Ring1 = 'Albatross Ring',
+    Ring2 = 'Albatross Ring',
+    Waist = 'Fisherman\'s Belt',
 }
 
 local riding = {
@@ -434,6 +437,8 @@ function gcmage.DoDefault(sets, ninSJMMP, whmSJMMP, blmSJMMP, rdmSJMMP, drkSJMMP
     gcinclude.DoDefaultIdle()
 
     local equipMaxMP = false
+
+
     if (gcdisplay.IdleSet == 'Normal' or gcdisplay.IdleSet == 'Alternate') then
         if (setMP > 0) then
             if (player.MP >= setMP + addMP) then

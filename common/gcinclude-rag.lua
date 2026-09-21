@@ -79,7 +79,7 @@ gcinclude.horizon_safe_mode = horizon_safe_mode
 gcinclude.horizon_legal_mode = horizon_legal_mode
 
 local Overrides = T{ 'idle','dt','pdt','mdt','fireres','fres','iceres','ires','bres','lightningres','lres','tres','earthres','eres','sres','windres','wires','ares','waterres','wares','wres','evasion','eva','override','or' }
-local Commands = T{ 'kite','lock','lockset','horizonmode' }
+local Commands = T{ 'kite','lock','lockset','horizonmode','fishing' }
 
 local Towns = T{
     'Tavnazian Safehold','Al Zahbi','Aht Urhgan Whitegate','Nashmau',
@@ -142,6 +142,7 @@ function gcinclude.Load(version)
 
     gcdisplay.CreateToggle('Kite', false)
     gcdisplay.CreateToggle('Lock', false)
+    gcdisplay.CreateToggle('Fishing', false)
 
     gcinclude.RetryLoad()
 end
@@ -255,6 +256,19 @@ function gcinclude.DoCommands(args)
             AshitaCore:GetChatManager():QueueCommand(-1, '/lac disable all')
         end
     end
+    if (args[1] == 'fishing') then
+        gcdisplay.AdvanceToggle('Fishing')
+        gcinclude.Message('Fishing Mode', gcdisplay.GetToggle('Fishing'))
+        -- Fishing Mode, if enabled, will equip the Fishing set and disable Range and Ammo slots to prevent accidental gear swaps while fishing. If disabled, it will re-enable those slots for normal gameplay.
+        if (gcdisplay.GetToggle('Fishing') == true) then 
+            gFunc.EquipSet('Fishing')
+            AshitaCore:GetChatManager():QueueCommand(-1, '/lac disable Range')
+            AshitaCore:GetChatManager():QueueCommand(-1, '/lac disable Ammo')
+        else
+            AshitaCore:GetChatManager():QueueCommand(-1, '/lac enable Range')
+            AshitaCore:GetChatManager():QueueCommand(-1, '/lac enable Ammo')
+        end
+    end
 end
 
 function gcinclude.Message(toggle, status)
@@ -281,8 +295,15 @@ function gcinclude.ToggleIdleSet(idleSet)
 end
 
 function gcinclude.DoDefaultIdle()
-    gFunc.EquipSet('Idle')
-    if (gcdisplay.IdleSet == 'Alternate') then gFunc.EquipSet('IdleALT') end
+    if (gcdisplay.GetToggle('Fishing') == true) then
+        gFunc.EquipSet('Fishing')
+    else
+        gFunc.EquipSet('Idle')
+        if (gcdisplay.IdleSet == 'Alternate') then gFunc.EquipSet('IdleALT') end
+        return
+    end
+    -- gFunc.EquipSet('Idle') -- Remove, Nest into Fishing Toggle
+    -- if (gcdisplay.IdleSet == 'Alternate') then gFunc.EquipSet('IdleALT') end
 end
 
 local restTimestamp = 0
