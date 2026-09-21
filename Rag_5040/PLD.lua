@@ -288,6 +288,10 @@ local sets = {
         Ring1 = 'Hercules\' Ring',
         Back = { Name = 'Valor Cape', Priority = 60 },
     },
+    Flash_Double_March = { -- Provided to avoid using Capricorn Staff etc. if recast is already capped.
+        Main = { Name = 'Durandal', Priority = -100 },
+        Sub = 'Koenig Shield',
+    },
 
     Hate = { -- 1435
         Main = { Name = 'Tutelary', Priority = 60 },
@@ -571,6 +575,10 @@ local sets = {
         Legs = { Name = 'Blood Cuisses', Priority = 70 },
         Feet = { Name = 'Homam Gambieras', Priority = 70 },
     },
+
+    WeaponBash = {
+        Main = 'Terra\'s Staff',
+    },
 }
 
 profile.SetMacroBook = function()
@@ -621,6 +629,8 @@ profile.HandleAbility = function()
     elseif (action.Name == 'Cover') then
         gFunc.EquipSet(sets.Cover)
     end
+
+    gcmelee.DoWeaponBash()
 end
 
 profile.HandleItem = function()
@@ -758,6 +768,10 @@ profile.HandleMidcast = function()
             gFunc.EquipSet(sets.Hate)
             gFunc.EquipSet(sets.Haste)
             gFunc.EquipSet(sets.Flash)
+            local march = gData.GetBuffCount('March')
+            if (march >= 2) then
+                gFunc.EquipSet(sets.Flash_Double_March)
+            end
         elseif (action.Name == 'Enlight') then
             if (gcmelee.GetIsDPS()) then
                 gFunc.EquipSet(sets.Enlight)
