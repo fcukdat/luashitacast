@@ -378,7 +378,7 @@ profile.HandleWeaponskill = function()
 end
 
 profile.OnLoad = function()
-    gcmelee.Load(310)
+    gcmelee.Load(320)
     profile.SetMacroBook()
 end
 

@@ -530,6 +530,7 @@ local sets = {
         Legs = { Name = 'Bls. Trousers +1', Priority = 50 },
         Feet = { Name = 'Blessed Pumps +1', Priority = 50 },
     },
+    StunACC = {},
 
     Nuke = {},
     NukeACC = {},
@@ -710,7 +711,7 @@ profile.HandleWeaponskill = function()
 end
 
 profile.OnLoad = function()
-    gcmage.Load(310)
+    gcmage.Load(320)
     profile.SetMacroBook()
 end
 

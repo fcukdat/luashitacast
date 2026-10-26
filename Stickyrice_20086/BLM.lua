@@ -425,6 +425,7 @@ local sets = {
         Legs = 'Nashira Seraweels',
         Feet = 'Nashira Crackows',
     },
+    StunACC = {},
     Yellow = {
         Main = {'Asklepios'},
         Ammo = 'Tiphia Sting',
@@ -610,7 +611,7 @@ profile.HandleWeaponskill = function()
 end
 
 profile.OnLoad = function()
-    gcmage.Load(310)
+    gcmage.Load(320)
     profile.SetMacroBook()
 end
 
