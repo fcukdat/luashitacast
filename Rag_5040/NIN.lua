@@ -782,7 +782,7 @@ profile.OnLoad = function()
     gcdisplay.CreateCycle('Nuke', {[1] = 'Potency', [2] = 'Accuracy',})
     gcinclude.SetAlias(T{'staff'})
     gcdisplay.CreateCycle('Staff', {[1] = 'Enabled', [2] = 'Disabled',})
-    gcmelee.Load(310)
+    gcmelee.Load(320)
     profile.SetMacroBook()
 end
 
@@ -979,7 +979,7 @@ profile.HandleMidcast = function()
             if (gcdisplay.GetCycle('Nuke') == 'Accuracy') then
                 gFunc.EquipSet(sets.NinElemental_Accuracy)
             end
-            if (action.MppAftercast < 51) then
+            if (player.MPP < 51 and player.MaxMP > 0) then
                 gFunc.EquipSet('uggalepih_pendant')
             end
             EquipStaffAndObi(action)

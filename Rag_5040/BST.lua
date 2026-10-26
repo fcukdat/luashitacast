@@ -265,6 +265,10 @@ local sets = {
     WeaponBash = {
         Main = 'Terra\'s Staff',
     },
+
+    Cure = {},
+    Enhancing = {},
+    Stoneskin = {},
 }
 
 profile.SetMacroBook = function()
@@ -426,7 +430,7 @@ profile.OnLoad = function()
     gcinclude.SetAlias(pets)
     gcinclude.SetAlias(T{'nextpet'})
     gcdisplay.CreateCycle('Pet', PetTable1)
-    gcmelee.Load(310)
+    gcmelee.Load(320)
     profile.SetMacroBook()
 end
 
@@ -491,6 +495,16 @@ end
 
 profile.HandleMidcast = function()
     gcmelee.DoMidcast(sets)
+
+    local action = gData.GetAction()
+    if (string.match(action.Name, 'Cure') or string.match(action.Name, 'Curaga')) then
+        gFunc.EquipSet(sets.Cure)
+    elseif (action.Skill == 'Enhancing Magic') then
+        gFunc.EquipSet(sets.Enhancing)
+        if (action.Name == 'Stoneskin') then
+            gFunc.EquipSet(sets.Stoneskin)
+        end
+    end
 end
 
 return profile

@@ -403,6 +403,7 @@ local sets = {
         Legs = 'Nashira Seraweels',
         Feet = 'Nashira Crackows',
     },
+    StunACC = {},
 
     Yellow = { -- This will override Precast if /lag is turned on or the spell casting time is too short. e.g. Tier 1: "Stone"
     },
@@ -545,7 +546,7 @@ profile.HandleWeaponskill = function()
 end
 
 profile.OnLoad = function()
-    gcmage.Load(310)
+    gcmage.Load(320)
     profile.SetMacroBook()
 end
 

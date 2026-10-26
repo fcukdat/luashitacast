@@ -300,7 +300,7 @@ local sets = {
     },
 
     WS_SATA_SharkBite = {
-        Hands = { Name = 'Rogue\'s Armlets +1', Priority = 60 },
+        Hands = { Name = 'Rog. Armlets +1', Priority = 60 },
     },
 
     -- The following are only applied on TA WS and are NOT applied on SATA WS
@@ -310,7 +310,7 @@ local sets = {
     WS_TA_SharkBite = {
         Neck = 'Hope Torque',
         Ear2 = 'Drone Earring',
-        Hands = { Name = 'Rogue\'s Armlets +1', Priority = 60 },
+        Hands = { Name = 'Rog. Armlets +1', Priority = 60 },
         Ring1 = 'Breeze Ring',
         Ring2 = 'Nimble Ring',
         Waist = { Name = 'Scouter\'s Rope', Priority = -20 },
@@ -644,7 +644,7 @@ profile.OnLoad = function()
     gcinclude.SetAlias(T{'ammo'})
     gcinclude.SetAlias(T{'th'})
     gcdisplay.CreateCycle('TH', {[1] = 'Auto', [2] = 'On', [3] = 'Off'})
-    gcmelee.Load(310)
+    gcmelee.Load(320)
     profile.SetMacroBook()
     profile.WatchTreasureHunter()
 end

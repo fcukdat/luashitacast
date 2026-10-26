@@ -101,7 +101,7 @@
 ```
 /tp /tpset /mode - toggles TP set between a LowAcc and HighAcc set.
                    this will be overwritten if you have a DT or resistance set etc. enabled.
-                   this is disabled for PLD in favour of using Idle sets by default.
+                   this is disabled on PLD in favour of using Idle sets by default. See: /dps
 /sethp [number]  - sets the HP under which regen gear will be used.
                    this will override the convenience value located in your .lua file.
                    /addhp will still work as per normal in conjunction with this.
@@ -195,6 +195,8 @@ Alternatively, use /ammo to cycle through them.
 /staff - toggles between always switching to staff for spells or not.
          This is typically used in conjunction with the /dps command and an
          empty weapon loadout to result in staff tanking even while engaged.
+         This can also be used while using regular melee weapons for additional white hit 
+         damage and will simply continually dump TP on spell cast.
 /sring - toggles usage of Shinobi Ring.
 /bat   - forces bat earring to equip if /evasion is already toggled on.
          this command is only available in horizon_safe_mode as this is already
@@ -203,6 +205,15 @@ Alternatively, use /ammo to cycle through them.
 
 ## Additional Commands for RNG:
 ```
-/ranged - switches Ranged Attacks between Attack and Accuracy modes / sets.
+/ranged - toggles Ranged Attacks between Attack and Accuracy modes / sets.
 /hnm    - uses HNM relevant ranged sets (i.e. -enmity sets).
+```
+
+## Additional Commands for COR:
+```
+/luzaf         - Use's Luzaf's Ring
+/ranged        - toggles Ranged Attacks between Attack and Accuracy modes / sets.
+/quickdraw /qd - toggles Quick Draw sets between Damage and Accuracy modes / sets.
+/staff         - toggles between always switching to staff for spells and quick draw or not.
+                 i.e. turning this on will dump TP when you cast a spell or use quick draw.
 ```
