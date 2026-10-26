@@ -3,7 +3,7 @@
 local minimumBuffer = 0.4
 
 -- Change this value to 0.4 if you do not use PacketFlow
-local packetDelay = 0.25
+local packetDelay = 0.4
 
 -- Comment out the equipment within these sets if you do not have them or do not wish to use them
 local fenrirs_earring = { -- Not used for RNG at all

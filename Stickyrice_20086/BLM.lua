@@ -71,15 +71,15 @@ local sets = {
         Waist = { Name = 'Penitent\'s Rope', Priority = -10 },
         Legs = 'Igqira Lappas',
         -- Feet = { Name = 'Herald\'s Gaiters', Priority = 50 },
-        Feet = { Name = 'Wonder Clomps', Priority = 50 },
+        Feet = { Name = 'Src. Sabots +1', Priority = 50 },
     },
     IdleALT = {
         Main = 'Jupiter\'s Staff',
         Range = 'Lu Shang\'s F. Rod',
         Head = 'Wzd. Petasos +1',
         Neck = 'Uggalepih Pendant',
-        Ear1 = 'Novio Earring',
-        Ear2 = 'Loquac. Earring',
+        Ear1 = 'Loquac. Earring',
+        Ear2 = 'Novio Earring',
         Body = 'Sorcerer\'s Coat',
         Hands = 'Src. Gloves +1',
         Ring1 = 'Snow Ring',
@@ -407,39 +407,52 @@ local sets = {
         Ammo = { Name = 'Phtm. Tathlum', Priority = 50 },
         Head = 'Nashira Turban',
         Neck = 'Philomath Stole',
-        Ear1 = 'Dark Earring',
-        Ear2 = 'Omn. Earring',
+        Ear1 = 'Abyssal Earring',
+        Ear2 = 'Morion Earring +1',
         Body = 'Errant Hpl.',
         Hands = { Name = 'Src. Gloves +1', Priority = 50 },
         Ring1 = 'Snow Ring',
         Ring2 = 'Tamas Ring',
         Back = { Name = 'Merciful Cape', Priority = 50 },
         Waist = { Name = 'Sorcerer\'s Belt', Priority = 60 },
-        Legs = { Name = 'Wzd. Tonban +1', Priority = 50 },
-        Feet = 'Genie Huaraches',
+        Legs = { Name = 'Wzd. Tonban', Priority = 50 },
+        Feet = 'Igqira Huaraches',
     },
     Stun = {
         Ear2 = { Name = 'Loquac. Earring', Priority = 50 },
         Hands = 'Nashira Gages',
-        Waist = 'Swift Belt',
+        Waist = { Name = 'Sorcerer\'s Belt', Priority = 60 },
         Legs = 'Nashira Seraweels',
         Feet = 'Nashira Crackows',
     },
-
     Yellow = {
-        Main = { {Name = 'Mandau', Level=75}, 'Asklepios'},
+        Main = {'Asklepios'},
         Ammo = 'Tiphia Sting',
         Head = { {Name = 'Zenith Crown', Level=75}, 'Gold Hairpin'},
         Neck = 'Star Necklace',
         Ring1 = 'Astral Ring',
         Ring2 = 'Astral Ring',
         Body = 'Black Cotehardie',
-        Hands = { {Name = 'Zenith Mitts', Level=75}, 'Errant Cuffs'},
+        Hands = 'Zenith Mitts',
         Back = 'Blue Cape',
         Waist = { Name = 'Penitent\'s Rope', Priority = -10 },
-        Feet = {'Errant Cuffs'},
+        Feet = 'Errant Pigaches',
      -- This will override Precast if /lag is turned on or the spell casting time is too short. e.g. Tier 1: "Stone"
     },
+    -- Yellow_Priority = {
+    --     Main = {'Asklepios'},
+    --     Ammo = 'Tiphia Sting',
+    --     Head = {'Zenith Crown', 'Gold Hairpin'},
+    --     Neck = 'Star Necklace',
+    --     Ring1 = 'Astral Ring',
+    --     Ring2 = 'Astral Ring',
+    --     Body = 'Black Cotehardie',
+    --     Hands = 'Zenith Mitts',
+    --     Back = 'Blue Cape',
+    --     Waist = { Name = 'Penitent\'s Rope', Priority = -10 },
+    --     Feet = 'Errant Pigaches',
+    --  -- This will override Precast if /lag is turned on or the spell casting time is too short. e.g. Tier 1: "Stone"
+    -- },
     YellowHNM = {
     },
 
@@ -459,11 +472,12 @@ local sets = {
     --     Legs = 'Mahatma Slops',
     --     Feet = { Name = 'Src. Sabots +1', Priority = 50 },
     -- },
-    Nuke_Priority = {
-        Main = 'Rose Wand +1',
+    Nuke = {
+        Main = {'Aquilo\'s Staff'},
+        Sub = 'Bugard Strap +1',
         Ammo = { Name = 'Phtm. Tathlum', Priority = 50 },
-        Head = { 'Wzd. Petasos +1', 'Seer\'s Crown +1'},
-        Neck = 'Elemental Torque',
+        Head = { 'Wzd. Petasos +1'},
+        Neck = 'Philomath Stole',
         Ear1 = 'Novio Earring',
         Ear2 = 'Moldavite Earring',
         Body = 'Igqira Weskit',
@@ -547,6 +561,10 @@ local sets = {
         Legs = { Name = 'Src. Tonban +1', Priority = 50 },
         Feet = { Name = 'Herald\'s Gaiters', Priority = 50 },
     },
+
+    WeaponBash = {
+        Main = 'Terra\'s Staff',
+    },
 }
 
 profile.SetMacroBook = function()
@@ -573,6 +591,7 @@ profile.Sets = gcmage.AppendSets(sets)
 
 profile.HandleAbility = function()
     gcmage.DoAbility()
+    gcmage.DoWeaponBash()
 end
 
 profile.HandleItem = function()

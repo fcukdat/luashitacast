@@ -7,7 +7,7 @@ local load_stylist = true -- Set to true to just load stylist on game start.
 
 -- The following 2 settings force your character model to blink on every spell cast or ability usage for the purposes of animation cancelling.
 local setStylistToBlinkSelf = true -- Forces blinks on visible equipment changes.
-local toggleDisplayHeadOnAbility = true -- Forces blinks on JA usage.
+local toggleDisplayHeadOnAbility = false -- Forces blinks on JA usage.
 
 -- Comment out the equipment within these sets if you do not have them or do not wish to use them
 local resentment_cape = {
@@ -42,6 +42,26 @@ local storm_crackows = {
 -- Disabled on horizon_legal_mode
 local opo_opo_necklace = {
     -- Neck = 'Opo-opo Necklace',
+}
+
+-- Gathering sets: replace your idle set while /fishing or /harvest mode is on
+local fishing = {
+    Head = 'Wzd. Petasos +1',
+    Range = 'Lu Shang\'s F. Rod',
+    Body = 'Angler\'s Tunica',
+    Hands = 'Angler\'s Gloves',
+    Legs = 'Angler\'s Hose',
+    Feet = 'Waders',
+    Ring1 = 'Albatross Ring',
+    Ring2 = 'Albatross Ring',
+    Waist = 'Fisherman\'s Belt',
+}
+local harvesting = {
+    -- Head = '',
+    Body = 'Field Tunica',
+    Hands = 'Field Gloves',
+    Legs = 'Field Hose',
+    Feet = 'Field Boots',
 }
 
 -- Set this to true to confirm that you actually read the README.md and set up the equipment and settings listed above correctly
@@ -82,7 +102,7 @@ gcinclude.horizon_safe_mode = horizon_safe_mode
 gcinclude.horizon_legal_mode = horizon_legal_mode
 
 local Overrides = T{ 'idle','dt','pdt','mdt','fireres','fres','iceres','ires','bres','lightningres','lres','tres','earthres','eres','sres','windres','wires','ares','waterres','wares','wres','evasion','eva','override','or' }
-local Commands = T{ 'kite','lock','lockset','horizonmode','fishing' }
+local Commands = T{ 'kite','lock','lockset','horizonmode','fishing','harvest' }
 
 local Towns = T{
     'Tavnazian Safehold','Al Zahbi','Aht Urhgan Whitegate','Nashmau',
@@ -148,6 +168,7 @@ function gcinclude.Load(version)
     gcdisplay.CreateToggle('Kite', false)
     gcdisplay.CreateToggle('Lock', false)
     gcdisplay.CreateToggle('Fishing', false)
+    gcdisplay.CreateToggle('Harvesting', false)
 
     gcinclude.RetryLoad()
 end
@@ -228,6 +249,33 @@ function gcinclude.ClearAlias(aliasList)
     end
 end
 
+local GatherModes = T{ 'Fishing', 'Harvesting' }
+
+-- Toggles a gathering mode on/off. Only one can be active at a time.
+-- Fishing also locks Range/Ammo to prevent the rod being swapped out.
+function gcinclude.ToggleGatherMode(mode)
+    local enable = not gcdisplay.GetToggle(mode)
+    local wasFishing = gcdisplay.GetToggle('Fishing')
+
+    for _, m in ipairs(GatherModes) do
+        gcdisplay.CreateToggle(m, false)
+    end
+
+    if (enable) then
+        gcdisplay.CreateToggle(mode, true)
+        gFunc.EquipSet(mode)
+    end
+    gcinclude.Message(mode .. ' Mode', enable)
+
+    if (enable and mode == 'Fishing') then
+        AshitaCore:GetChatManager():QueueCommand(-1, '/lac disable Range')
+        AshitaCore:GetChatManager():QueueCommand(-1, '/lac disable Ammo')
+    elseif (wasFishing) then
+        AshitaCore:GetChatManager():QueueCommand(-1, '/lac enable Range')
+        AshitaCore:GetChatManager():QueueCommand(-1, '/lac enable Ammo')
+    end
+end
+
 function gcinclude.DoCommands(args)
     local isOverride = Overrides:contains(args[1])
 
@@ -260,19 +308,10 @@ function gcinclude.DoCommands(args)
         else
             AshitaCore:GetChatManager():QueueCommand(-1, '/lac disable all')
         end
-    end
-    if (args[1] == 'fishing') then
-        gcdisplay.AdvanceToggle('Fishing')
-        gcinclude.Message('Fishing Mode', gcdisplay.GetToggle('Fishing'))
-        -- Fishing Mode, if enabled, will equip the Fishing set and disable Range and Ammo slots to prevent accidental gear swaps while fishing. If disabled, it will re-enable those slots for normal gameplay.
-        if (gcdisplay.GetToggle('Fishing') == true) then 
-            gFunc.EquipSet('Fishing')
-            AshitaCore:GetChatManager():QueueCommand(-1, '/lac disable Range')
-            AshitaCore:GetChatManager():QueueCommand(-1, '/lac disable Ammo')
-        else
-            AshitaCore:GetChatManager():QueueCommand(-1, '/lac enable Range')
-            AshitaCore:GetChatManager():QueueCommand(-1, '/lac enable Ammo')
-        end
+    elseif (args[1] == 'fishing') then
+        gcinclude.ToggleGatherMode('Fishing')
+    elseif (args[1] == 'harvest') then
+        gcinclude.ToggleGatherMode('Harvesting')
     end
 end
 
@@ -300,15 +339,14 @@ function gcinclude.ToggleIdleSet(idleSet)
 end
 
 function gcinclude.DoDefaultIdle()
-    if (gcdisplay.GetToggle('Fishing') == true) then
+    if (gcdisplay.GetToggle('Fishing')) then
         gFunc.EquipSet('Fishing')
+    elseif (gcdisplay.GetToggle('Harvesting')) then
+        gFunc.EquipSet('Harvesting')
     else
         gFunc.EquipSet('Idle')
         if (gcdisplay.IdleSet == 'Alternate') then gFunc.EquipSet('IdleALT') end
-        return
     end
-    -- gFunc.EquipSet('Idle') -- Remove, Nest into Fishing Toggle
-    -- if (gcdisplay.IdleSet == 'Alternate') then gFunc.EquipSet('IdleALT') end
 end
 
 local restTimestamp = 0
@@ -508,6 +546,8 @@ function gcinclude.AppendSets(sets)
     sets.skulkers_cape = skulkers_cape
     sets.storm_crackows = storm_crackows
     sets.opo_opo_necklace = opo_opo_necklace
+    sets.fishing = fishing
+    sets.harvesting = harvesting
 
     return sets
 end

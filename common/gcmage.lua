@@ -18,7 +18,7 @@ local rdm_advanced = false
 local whm_advanced = false
 
 -- Set to true if you have both Dark Earring and Abyssal earring to turn off Diabolos's Earring override for Dark Magic sets
-local dark_and_abyssal_earrings = true
+local dark_and_abyssal_earrings = false
 
 -- Set to true if you wish to always use elemental staves or claustrum for Elemental DoTs. This is only required for BLM.
 local use_staves_for_elemental_debuffs = false
@@ -103,7 +103,7 @@ local republic_gold_medal = { -- Note: Disabled for BRD
     Neck = 'Rep.Gold Medal',
 }
 local diabolos_earring = { -- Forces usage of this for NukeACC, EnfeebleACC, and Dark Magic
-    -- Ear2 = 'Diabolos\'s Earring',
+    Ear2 = 'Diabolos\'s Earring',
 }
 local diabolos_ring = {
     Ring2 = 'Diabolos\'s Ring',
@@ -133,18 +133,6 @@ local i_can_read_and_follow_instructions_test = true
 Extra Sticky Stuff
 --------------------------------
 ]]
-
-local fishing = {
-    Head = 'Wzd. Petasos +1',
-    Range = 'Lu Shang\'s F. Rod', 
-    Body = 'Fsh. Tunica',
-    Hands = 'Fsh. Gloves',
-    Legs = 'Fisherman\'s Hose',
-    Feet = 'Waders',
-    Ring1 = 'Albatross Ring',
-    Ring2 = 'Albatross Ring',
-    Waist = 'Fisherman\'s Belt',
-}
 
 local riding = {
     Head = 'Wzd. Petasos +1',
@@ -244,7 +232,7 @@ local addMP = 0
 local lastSummoningElement = ''
 local restingMaxMP = false
 
-local lag = false
+local lag = true
 
 local ver_loaded = nil
 
@@ -1351,7 +1339,6 @@ function gcmage.AppendSets(sets)
 
 -- custom sets
     sets.riding = riding
-    sets.fishing = fishing
     
     sets.claustrum = claustrum
 
